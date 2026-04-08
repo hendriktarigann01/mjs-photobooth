@@ -100,7 +100,8 @@ const HomeView = () => {
           </Typography>
 
           <NativeImage
-            src="/static/mjswhite.png"
+            // src="/static/mjswhite.png"
+            src="/static/karindo.png"
             alt="tei"
             sx={{
               width: { xs: "230px", xl: "171px" },

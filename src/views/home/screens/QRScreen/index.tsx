@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { LoadingButton } from "@mui/lab";
 import {
   Box,

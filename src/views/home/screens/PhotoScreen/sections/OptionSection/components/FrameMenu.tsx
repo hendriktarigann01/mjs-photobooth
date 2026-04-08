@@ -56,7 +56,7 @@ const Preview: FC<PreviewProps> = ({ selected, frame, onClick }) => {
 
 const FrameMenu: FC<FrameMenuProps> = ({ setSelectedMenu }) => {
   const portrait = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("xl")
+    theme.breakpoints.down("xl"),
   );
 
   const {
@@ -67,7 +67,7 @@ const FrameMenu: FC<FrameMenuProps> = ({ setSelectedMenu }) => {
     setSelectedCurrentFrame,
   } = useContext(PhotoboothContext);
 
-  const frames = frame[event || "flei"][layout || 1];
+  const frames = frame["flei"][(layout as number) || 1] || [];
 
   return (
     <Box width={{ xs: "662px", xl: "570px" }}>
