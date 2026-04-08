@@ -82,11 +82,9 @@ const QRScreen = () => {
     }
   };
 
-  const [feedLoaded, setFeedLoaded] = useState<boolean>(false);
-  const [storyLoaded, setStoryLoaded] = useState<boolean>(false);
   const [normalLoaded, setNormalLoaded] = useState<boolean>(false);
 
-  const imageLoaded = feedLoaded && storyLoaded && normalLoaded;
+  const imageLoaded = normalLoaded;
 
   const feedBackgroundSrc =
     event === "wmf"
@@ -239,7 +237,7 @@ const QRScreen = () => {
 
               <NativeImage
                 src={photoResult || ""}
-                alt="feed-photo"
+                alt="normal-photo"
                 sx={{
                   width: "300px",
                   boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)",
