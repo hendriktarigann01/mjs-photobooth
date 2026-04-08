@@ -8,11 +8,7 @@ const uploadImage = async (payload: {
   event: string | null;
 }) => {
   try {
-    const { base64Image, event } = payload;
-
-    if (!event) {
-      throw new Error("Please specify event name!");
-    }
+    const { base64Image, event = "photobooth" } = payload;
 
     const fileName = `MJS-${Date.now()}`;
     const base64Data = base64Image.replace(/^data:image\/png;base64,/, "");

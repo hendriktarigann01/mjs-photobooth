@@ -22,7 +22,7 @@ const NativeImage = styled("img")(() => ({}));
 
 const HomeView = () => {
   const portrait = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("xl")
+    theme.breakpoints.down("xl"),
   );
 
   const { screen, setScreen, event } = useContext(PhotoboothContext);
@@ -33,10 +33,11 @@ const HomeView = () => {
 
   const imagesLoaded = backgroundLoaded && teiLogoLoaded && MJSLogoLoaded;
 
-  const eventLogoSrc = event === "wmf" ? "/static/wmf.png" : "/static/archid.png";
+  const eventLogoSrc =
+    event === "wmf" ? "/static/wmf.png" : "/static/archid.png";
 
-  const eventHashtag =
-    event === "wmf" ? "#MJSxWeddingMarketFair" : "#MJSxARCHID2025";
+  // const eventHashtag =
+  //   event === "wmf" ? "#MJSxWeddingMarketFair" : "#MJSxARCHID2025";
 
   if (screen !== "welcome") {
     return (
@@ -77,6 +78,7 @@ const HomeView = () => {
             src={eventLogoSrc}
             alt="tei"
             sx={{
+              display: "none",
               width: "206px",
               position: "absolute",
               top: { xs: "32px", xl: "48px" },
@@ -94,7 +96,7 @@ const HomeView = () => {
             fontWeight={500}
             sx={{ transform: "translate(-50%)" }}
           >
-            {eventHashtag}
+            {/* {eventHashtag} */}
           </Typography>
 
           <NativeImage
@@ -124,12 +126,13 @@ const HomeView = () => {
               >
                 <Instagram sx={{ fontSize: "36px" }} />
                 <Typography fontSize="22px" fontWeight="600">
-                  @mjsolutionid
+                  @karindo.id
                 </Typography>
               </Stack>
 
               <Typography fontSize="22px" color="white">
-                Powered By MJ Solution Indonesia
+                {/* Powered By MJ Solution Indonesia */}
+                Powered By Karindo
               </Typography>
 
               <Stack
@@ -140,7 +143,8 @@ const HomeView = () => {
               >
                 <Language sx={{ fontSize: "36px" }} />
                 <Typography fontSize="22px" fontWeight="600">
-                  mjsolution.co.id
+                  {/* mjsolution.co.id */}
+                  karindoled.co.id
                 </Typography>
               </Stack>
             </Stack>

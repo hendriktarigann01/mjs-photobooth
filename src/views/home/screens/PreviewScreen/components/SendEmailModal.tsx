@@ -32,7 +32,7 @@ const SendEmailModal: FC<SendEmailModalProps> = ({ open, onClose }) => {
         }
 
         const baseUrl =
-          "https://iwsofmkdpivrqxqlvmyh.supabase.co/storage/v1/object/public/photo%20booth/";
+          "https://ttiptxadahqgphyrabvh.supabase.co/storage/v1/object/public/photo%20booth/";
 
         if (data) {
           const body: EmailerOptions = {

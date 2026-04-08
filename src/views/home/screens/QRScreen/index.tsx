@@ -67,7 +67,7 @@ const QRScreen = () => {
 
     if (imageData) {
       const eventBucket = event || "photobooth";
-      const baseUrl = `https://svtnrqfblasgxsijeyva.supabase.co/storage/v1/object/public/${eventBucket}/`;
+      const baseUrl = `=https://ttiptxadahqgphyrabvh.supabase.co/storage/v1/object/public/${eventBucket}/`;
 
       setImageVariant((prev) => ({
         ...prev,
@@ -120,7 +120,7 @@ const QRScreen = () => {
             mb={{ xs: 3, xl: "unset" }}
           >
             {/* Instagram Feed */}
-            <Stack spacing={2} alignItems="center">
+            {/* <Stack spacing={2} alignItems="center">
               <Typography textAlign="center" fontSize="30px" color="white">
                 Instagram Feed
               </Typography>
@@ -172,10 +172,10 @@ const QRScreen = () => {
                   Download
                 </LoadingButton>
               )}
-            </Stack>
+            </Stack> */}
 
             {/* Instagram Story */}
-            <Stack spacing={2} alignItems="center">
+            {/* <Stack spacing={2} alignItems="center">
               <Typography textAlign="center" fontSize="30px" color="white">
                 Instagram Story
               </Typography>
@@ -227,7 +227,7 @@ const QRScreen = () => {
                   Download
                 </LoadingButton>
               )}
-            </Stack>
+            </Stack> */}
 
             {/* Normal Save */}
             <Stack spacing={2} alignItems="center">
@@ -238,7 +238,10 @@ const QRScreen = () => {
               <NativeImage
                 src={photoResult || ""}
                 alt="feed-photo"
-                sx={{ width: "300px", boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)" }}
+                sx={{
+                  width: "300px",
+                  boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)",
+                }}
                 onLoad={() => setNormalLoaded(true)}
               />
 
@@ -271,7 +274,7 @@ const QRScreen = () => {
             variant="contained"
             color="Green200"
             size="large"
-            sx={{ alignSelf: "flex-end", width: "200px" }}
+            sx={{ mx: "auto", mt: 10, width: "200px" }}
             onClick={() => setScreen("preview")}
           >
             Done

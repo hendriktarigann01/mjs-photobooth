@@ -63,7 +63,7 @@ const SendOptionMenu: FC<SendOptionMenuProps> = ({ savePhotoResult }) => {
         Send Photo
       </Typography>
 
-      <Grid2 container spacing={4}>
+      <Grid2 container spacing={1}>
         <Grid2 size={6}>
           <Button
             variant="contained"

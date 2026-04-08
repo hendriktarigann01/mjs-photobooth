@@ -32,7 +32,7 @@ const WhatsappModal: FC<WhatsappModalProps> = ({ open, onClose }) => {
           .transform((value: string) => value.trim())
           .matches(
             /^\+?[1-9]\d{1,3}[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/,
-            "Whatsapp number is not valid"
+            "Whatsapp number is not valid",
           )
           .required("Whatsapp number is required"),
       }),
@@ -54,7 +54,7 @@ const WhatsappModal: FC<WhatsappModalProps> = ({ open, onClose }) => {
 
             if (data) {
               const baseUrl =
-                "https://iwsofmkdpivrqxqlvmyh.supabase.co/storage/v1/object/public/photo%20booth/";
+                "https://ttiptxadahqgphyrabvh.supabase.co/storage/v1/object/public/photo%20booth/";
 
               const body = {
                 phone: values.phone.trim(),
