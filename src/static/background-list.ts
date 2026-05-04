@@ -39,13 +39,13 @@ export const backgrounds: BackgroundOption[] = [
   {
     id: 5,
     name: "Clean Workspace",
-    url: "/static/background/bg-5.png",
-    thumbnail: "/static/background/bg-5.png",
+    url: "/static/background/bg-5.webp",
+    thumbnail: "/static/background/bg-5.webp",
   },
   {
     id: 6,
     name: "Bookshelf Library",
-    url: "/static/background/bg-6.png",
-    thumbnail: "/static/background/bg-6.png",
+    url: "/static/background/bg-6.webp",
+    thumbnail: "/static/background/bg-6.webp",
   },
 ];
