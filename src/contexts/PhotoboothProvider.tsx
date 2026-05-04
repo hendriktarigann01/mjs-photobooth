@@ -1,3 +1,7 @@
+// Tujuan      : Global state manager untuk sesi photobooth
+// Caller      : app/layout.tsx (root provider)
+// Main Exports: PhotoboothContext, PhotoboothProvider
+// Side Effects: Reads search params (event)
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -45,6 +49,11 @@ type PhotoboothContextType = {
   selectedCurrentFrame: string | null;
   setSelectedCurrentFrame: Dispatch<SetStateAction<string | null>>;
 
+  selectedBackground: string | null;
+  setSelectedBackground: Dispatch<SetStateAction<string | null>>;
+  selectedCurrentBackground: string | null;
+  setSelectedCurrentBackground: Dispatch<SetStateAction<string | null>>;
+
   photoResult: string | null;
   setPhotoResult: Dispatch<SetStateAction<string | null>>;
 
@@ -83,6 +92,11 @@ export const PhotoboothContext = createContext<PhotoboothContextType>({
   selectedCurrentFrame: null,
   setSelectedCurrentFrame: () => {},
 
+  selectedBackground: null,
+  setSelectedBackground: () => {},
+  selectedCurrentBackground: null,
+  setSelectedCurrentBackground: () => {},
+
   photoResult: null,
   setPhotoResult: () => {},
 
@@ -107,6 +121,12 @@ const PhotoboothProvider: FC<PropsWithChildren> = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
   const [selectedFrame, setSelectedFrame] = useState<string | null>(null);
   const [selectedCurrentFrame, setSelectedCurrentFrame] = useState<
+    string | null
+  >(null);
+  const [selectedBackground, setSelectedBackground] = useState<string | null>(
+    null
+  );
+  const [selectedCurrentBackground, setSelectedCurrentBackground] = useState<
     string | null
   >(null);
   const [photoResult, setPhotoResult] = useState<string | null>(null);
@@ -136,6 +156,10 @@ const PhotoboothProvider: FC<PropsWithChildren> = ({ children }) => {
         setSelectedFrame,
         selectedCurrentFrame,
         setSelectedCurrentFrame,
+        selectedBackground,
+        setSelectedBackground,
+        selectedCurrentBackground,
+        setSelectedCurrentBackground,
         photoResult,
         setPhotoResult,
         imageVariant,

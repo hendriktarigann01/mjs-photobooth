@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+// Tujuan      : Layar akhir untuk upload foto ke Supabase dan tampilkan QR Code
+// Caller      : HomeView (views/home/index.tsx)
+// Dependensi  : PhotoboothContext, useUploadImage, Supabase Storage, qrcode.react
+// Main Exports: QRScreen
+// Side Effects: Upload image ke Supabase Storage bucket
 
 import { LoadingButton } from "@mui/lab";
 import {
@@ -82,19 +87,22 @@ const QRScreen = () => {
     }
   };
 
+  const [feedLoaded, setFeedLoaded] = useState<boolean>(false);
+  const [storyLoaded, setStoryLoaded] = useState<boolean>(false);
   const [normalLoaded, setNormalLoaded] = useState<boolean>(false);
 
-  const imageLoaded = normalLoaded;
+  const imageLoaded = feedLoaded && storyLoaded && normalLoaded;
 
+  // Feed = rasio 1:1, Story = rasio 9:16
   const feedBackgroundSrc =
     event === "wmf"
       ? "/static/background/1-1-wmf.png"
-      : "/static/background/story.png";
+      : "/static/background/1-1.png";
 
   const storyBackgroundSrc =
     event === "wmf"
       ? "/static/background/9-16-wmf.png"
-      : "/static/background/feed.png";
+      : "/static/background/9-16.png";
 
   return (
     <Container maxWidth={false} sx={{ maxWidth: "1306px" }}>
@@ -120,7 +128,7 @@ const QRScreen = () => {
             mb={{ xs: 3, xl: "unset" }}
           >
             {/* Instagram Feed */}
-            {/* <Stack spacing={2} alignItems="center">
+            <Stack spacing={2} alignItems="center">
               <Typography textAlign="center" fontSize="30px" color="white">
                 Instagram Feed
               </Typography>
@@ -172,10 +180,10 @@ const QRScreen = () => {
                   Download
                 </LoadingButton>
               )}
-            </Stack> */}
+            </Stack>
 
             {/* Instagram Story */}
-            {/* <Stack spacing={2} alignItems="center">
+            <Stack spacing={2} alignItems="center">
               <Typography textAlign="center" fontSize="30px" color="white">
                 Instagram Story
               </Typography>
@@ -227,7 +235,7 @@ const QRScreen = () => {
                   Download
                 </LoadingButton>
               )}
-            </Stack> */}
+            </Stack>
 
             {/* Normal Save */}
             <Stack spacing={2} alignItems="center">

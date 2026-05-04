@@ -1,3 +1,7 @@
+// Tujuan      : Panel opsi kustom (Effect, Frame, Background) di layar foto
+// Caller      : PhotoScreen/index.tsx
+// Dependensi  : PhotoboothContext
+// Main Exports: OptionSection
 import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 
@@ -5,6 +9,7 @@ import MainMenu from "./components/MainMenu";
 import EffectMenu from "./components/EffectMenu";
 import { PhotoboothContext } from "@src/contexts/PhotoboothProvider";
 import FrameMenu from "./components/FrameMenu";
+import BackgroundMenu from "./components/BackgroundMenu";
 
 const OptionSection = () => {
   const { selectedMenu, setSelectedMenu } = useContext(PhotoboothContext);
@@ -38,6 +43,13 @@ const OptionSection = () => {
 
         {selectedMenu === "Frame" && (
           <FrameMenu
+            selectedMenu={selectedMenu}
+            setSelectedMenu={setSelectedMenu}
+          />
+        )}
+
+        {selectedMenu === "Background" && (
+          <BackgroundMenu
             selectedMenu={selectedMenu}
             setSelectedMenu={setSelectedMenu}
           />

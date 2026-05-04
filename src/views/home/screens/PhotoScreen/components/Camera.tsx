@@ -1,3 +1,8 @@
+// Tujuan      : Komponen kamera individual (per slot foto) dengan dukungan virtual background
+// Caller      : Layout.tsx (PhotoScreen)
+// Dependensi  : PhotoboothContext, react-webcam, useVirtualBackground hook
+// Main Exports: Camera
+// Side Effects: Akses webcam, render loop Canvas 2D untuk virtual background
 "use client";
 
 import { CameraAltOutlined } from "@mui/icons-material";
@@ -20,6 +25,7 @@ import React, {
   useState,
 } from "react";
 import Webcam from "react-webcam";
+import { useVirtualBackground } from "@src/hooks/useVirtualBackground";
 
 // Types
 
@@ -46,8 +52,10 @@ type CameraViewProps = {
   cameraWidth: number;
   cameraHeight: number;
   webcamRef: RefObject<Webcam>;
+  canvasRef: RefObject<HTMLCanvasElement>;
   selectedFilter: PhotoFilter | null;
   selectedMenu: string | null;
+  hasVirtualBg: boolean;
 };
 
 // Components
@@ -117,8 +125,10 @@ const CameraView: FC<CameraViewProps> = ({
   cameraWidth,
   cameraHeight,
   webcamRef,
+  canvasRef,
   selectedFilter,
   selectedMenu,
+  hasVirtualBg,
 }) => {
   const showCaptureButton =
     !selectedMenu &&
@@ -171,17 +181,37 @@ const CameraView: FC<CameraViewProps> = ({
       )}
 
       {showWebcam && (
-        <Webcam
-          screenshotQuality={100}
-          ref={webcamRef}
-          audio={false}
-          mirrored
-          width={cameraWidth}
-          height={cameraHeight}
-          videoConstraints={{ width: cameraWidth, height: cameraHeight }}
-          screenshotFormat="image/jpeg"
-          style={{ filter: selectedFilter?.value }}
-        />
+        <>
+          <Webcam
+            screenshotQuality={100}
+            ref={webcamRef}
+            audio={false}
+            mirrored
+            width={cameraWidth}
+            height={cameraHeight}
+            videoConstraints={{ width: cameraWidth, height: cameraHeight }}
+            screenshotFormat="image/jpeg"
+            style={{
+              filter: selectedFilter?.value,
+              // Sembunyikan video mentah saat virtual bg aktif
+              opacity: hasVirtualBg ? 0 : 1,
+              position: hasVirtualBg ? "absolute" : "static",
+            }}
+          />
+          {/* Canvas overlay untuk virtual background rendering */}
+          <canvas
+            ref={canvasRef as RefObject<HTMLCanvasElement>}
+            width={cameraWidth}
+            height={cameraHeight}
+            style={{
+              display: hasVirtualBg ? "block" : "none",
+              filter: selectedFilter?.value || "none",
+              width: "100%",
+              height: "100%",
+              transform: "scaleX(-1)", // mirror sama seperti webcam
+            }}
+          />
+        </>
       )}
     </>
   );
@@ -199,11 +229,17 @@ const Camera: FC<CameraProps> = ({
   retakeCameraIndex,
   setRetakeCameraIndex,
 }) => {
-  const { selectedFilter, selectedCurrentFilter, selectedMenu } =
-    useContext(PhotoboothContext);
+  const {
+    selectedFilter,
+    selectedCurrentFilter,
+    selectedMenu,
+    selectedBackground,
+    selectedCurrentBackground,
+  } = useContext(PhotoboothContext);
 
   const webcamRef = useRef<Webcam>(null);
   const cameraWrapperRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [cameraWrapperWidth, setCameraWrapperWidth] = useState<number>(0);
   const [isTimerOn, setIsTimerOn] = useState<boolean>(false);
@@ -211,38 +247,72 @@ const Camera: FC<CameraProps> = ({
 
   const cameraWidth = cameraWrapperWidth;
 
+  // Tentukan background aktif: current (preview saat di menu) atau applied
+  const activeBg = selectedCurrentBackground ?? selectedBackground;
+  const hasVirtualBg = Boolean(activeBg);
+
+  // Hook virtual background
+  const { startRenderLoop, stopRenderLoop } = useVirtualBackground({
+    backgroundUrl: activeBg,
+    enabled: hasVirtualBg,
+    width: cameraWidth || 640,
+    height: cameraHeight,
+  });
+
   const updateFrameWidth = () => {
     setCameraWrapperWidth(cameraWrapperRef.current?.clientWidth || 0);
   };
 
   useEffect(() => {
     updateFrameWidth();
-
     window.addEventListener("resize", updateFrameWidth);
-
     return () => {
       window.removeEventListener("resize", updateFrameWidth);
     };
   }, []);
 
+  // Mulai render loop virtual background saat webcam siap
+  useEffect(() => {
+    if (!hasVirtualBg || !canvasRef.current) return;
+
+    const intervalId = setInterval(() => {
+      const video = webcamRef.current?.video;
+      const canvas = canvasRef.current;
+      if (video && canvas && video.readyState === 4) {
+        clearInterval(intervalId);
+        startRenderLoop(video, canvas);
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(intervalId);
+      stopRenderLoop();
+    };
+  }, [hasVirtualBg, startRenderLoop, stopRenderLoop]);
+
   const capture = useCallback(
     (index: number) => {
-      const webcamEl = webcamRef.current;
+      let imageSrc: string | null = null;
 
-      if (webcamEl) {
-        const imageSrc = webcamEl.getScreenshot();
-
-        if (imageSrc) {
-          setPhotos((prev) => {
-            const newPhotos = [...prev];
-            newPhotos[index] = imageSrc;
-
-            return newPhotos;
-          });
+      if (hasVirtualBg && canvasRef.current) {
+        imageSrc = canvasRef.current.toDataURL("image/jpeg", 0.92);
+      } else {
+        const webcamEl = webcamRef.current;
+        if (webcamEl) {
+          imageSrc = webcamEl.getScreenshot();
         }
       }
+
+      if (imageSrc) {
+        setPhotos((prev) => {
+          const newPhotos = [...prev];
+          newPhotos[index] = imageSrc;
+
+          return newPhotos;
+        });
+      }
     },
-    [setPhotos]
+    [setPhotos, hasVirtualBg]
   );
 
   const startCaptureTimer = useCallback(
@@ -289,6 +359,7 @@ const Camera: FC<CameraProps> = ({
         <CameraView
           photo={photos[index]}
           webcamRef={webcamRef}
+          canvasRef={canvasRef}
           cameraHeight={cameraHeight}
           cameraWidth={cameraWidth}
           latestCameraIndex={latestCameraIndex}
@@ -300,6 +371,7 @@ const Camera: FC<CameraProps> = ({
           timeLeft={timeLeft}
           selectedFilter={selectedCurrentFilter || selectedFilter}
           selectedMenu={selectedMenu}
+          hasVirtualBg={hasVirtualBg}
         />
       )}
 
@@ -307,6 +379,7 @@ const Camera: FC<CameraProps> = ({
         <CameraView
           photo={photos[index]}
           webcamRef={webcamRef}
+          canvasRef={canvasRef}
           cameraHeight={cameraHeight}
           cameraWidth={cameraWidth}
           latestCameraIndex={latestCameraIndex}
@@ -318,6 +391,7 @@ const Camera: FC<CameraProps> = ({
           timeLeft={timeLeft}
           selectedFilter={selectedCurrentFilter || selectedFilter}
           selectedMenu={selectedMenu}
+          hasVirtualBg={hasVirtualBg}
         />
       )}
     </Box>

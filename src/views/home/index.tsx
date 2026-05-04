@@ -29,9 +29,9 @@ const HomeView = () => {
 
   const [backgroundLoaded, setBackgroundLoaded] = useState<boolean>(false);
   const [teiLogoLoaded, setTeiLogoLoaded] = useState<boolean>(false);
-  const [MJSLogoLoaded, setMJSLogoLoaded] = useState<boolean>(false);
+  const [VWLogoLoaded, setVWLogoLoaded] = useState<boolean>(false);
 
-  const imagesLoaded = backgroundLoaded && teiLogoLoaded && MJSLogoLoaded;
+  const imagesLoaded = backgroundLoaded && teiLogoLoaded && VWLogoLoaded;
 
   const eventLogoSrc =
     event === "wmf" ? "/static/wmf.png" : "/static/archid.png";
@@ -61,9 +61,8 @@ const HomeView = () => {
           }}
         >
           <NativeImage
-            src={`/static/background/${
-              portrait ? "bg2-potrait.webp" : "bg-landscape.webp"
-            }`}
+            src={`/static/background/${portrait ? "bg2-potrait.webp" : "bg-landscape.webp"
+              }`}
             alt="background"
             sx={{
               width: "100%",
@@ -99,18 +98,41 @@ const HomeView = () => {
             {/* {eventHashtag} */}
           </Typography>
 
-          <NativeImage
-            // src="/static/mjswhite.png"
-            src="/static/karindo.png"
-            alt="tei"
-            sx={{
-              width: { xs: "230px", xl: "171px" },
-              position: "absolute",
-              top: { xs: "32px", xl: "48px" },
-              right: { xs: "32px", xl: "48px" },
-            }}
-            onLoad={() => setMJSLogoLoaded(true)}
-          />
+          <>
+            <NativeImage
+              src="/static/karindo.png"
+              alt="karindo-logo"
+              sx={{
+                width: { xs: "230px", xl: "171px" },
+                position: "absolute",
+                top: { xs: "32px", xl: "48px" },
+                left: { xs: "32px", xl: "48px" },
+              }}
+            />
+
+            <NativeImage
+              src="/static/vision-works.png"
+              alt="vision-works-logo"
+              sx={{
+                width: { xs: "230px", xl: "171px" },
+                position: "absolute",
+                top: { xs: "32px", xl: "48px" },
+                right: { xs: "258px", xl: "254px" },
+              }}
+              onLoad={() => setVWLogoLoaded(true)}
+            />
+
+            <NativeImage
+              src="/static/inabuyer.png"
+              alt="inabuyer-logo"
+              sx={{
+                width: { xs: "230px", xl: "171px" },
+                position: "absolute",
+                top: { xs: "32px", xl: "48px" },
+                right: { xs: "32px", xl: "48px" },
+              }}
+            />
+          </>
 
           <Box width="100%" position="absolute" bottom={0}>
             <Stack

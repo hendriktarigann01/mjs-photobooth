@@ -1,3 +1,7 @@
+// Tujuan      : Menu utama navigasi (Effect, Frame, Background, Foreground) + Back/Next
+// Caller      : OptionSection/index.tsx
+// Dependensi  : PhotoboothContext, applyFilters helper
+// Main Exports: MainMenu
 import { Button, Grid2 } from "@mui/material";
 import React, { Dispatch, FC, SetStateAction, useContext } from "react";
 import {
@@ -24,7 +28,6 @@ const menus: Menu[] = [
     id: 4,
     name: "Background",
     icon: <BGReplace />,
-    isDisabled: true,
   },
 ];
 
@@ -44,6 +47,8 @@ const MainMenu: FC<MainMenuProps> = ({ setSelectedMenu }) => {
     setSelectedCurrentFilter,
     setSelectedFrame,
     setSelectedCurrentFrame,
+    setSelectedBackground,
+    setSelectedCurrentBackground,
   } = useContext(PhotoboothContext);
 
   const disableNextButton =
@@ -56,6 +61,8 @@ const MainMenu: FC<MainMenuProps> = ({ setSelectedMenu }) => {
     setSelectedCurrentFilter(null);
     setSelectedFrame(null);
     setSelectedCurrentFrame(null);
+    setSelectedBackground(null);
+    setSelectedCurrentBackground(null);
   };
 
   const onNext = async () => {
