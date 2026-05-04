@@ -13,19 +13,19 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <MUIThemeProvider>
-      <TanstackQueryProvider>
-        <Suspense>
-          <PhotoboothProvider>
-            <html lang="en">
-              <body>
+    <html lang="en">
+      <body>
+        <MUIThemeProvider>
+          <TanstackQueryProvider>
+            <Suspense>
+              <PhotoboothProvider>
                 <NotistackProvider>{children}</NotistackProvider>
-              </body>
-            </html>
-          </PhotoboothProvider>
-        </Suspense>
-      </TanstackQueryProvider>
-    </MUIThemeProvider>
+              </PhotoboothProvider>
+            </Suspense>
+          </TanstackQueryProvider>
+        </MUIThemeProvider>
+      </body>
+    </html>
   );
 };
 

@@ -17,10 +17,12 @@ import { styled } from "@mui/material/styles";
 import { Instagram, Language } from "@mui/icons-material";
 import { PhotoboothContext } from "@src/contexts/PhotoboothProvider";
 import QRScreen from "./screens/QRScreen";
+import { useClient } from "@src/hooks/useClient";
 
 const NativeImage = styled("img")(() => ({}));
 
 const HomeView = () => {
+  const isClient = useClient();
   const portrait = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("xl"),
   );
@@ -60,18 +62,21 @@ const HomeView = () => {
             display: imagesLoaded ? "block" : "none",
           }}
         >
-          <NativeImage
-            src={`/static/background/${portrait ? "bg2-potrait.webp" : "bg-landscape.webp"
+          {isClient && (
+            <NativeImage
+              src={`/static/background/${
+                portrait ? "bg2-potrait.webp" : "bg-landscape.webp"
               }`}
-            alt="background"
-            sx={{
-              width: "100%",
-              minHeight: "100vh",
-              position: "absolute",
-              zIndex: -1,
-            }}
-            onLoad={() => setBackgroundLoaded(true)}
-          />
+              alt="background"
+              sx={{
+                width: "100%",
+                minHeight: "100vh",
+                position: "absolute",
+                zIndex: -1,
+              }}
+              onLoad={() => setBackgroundLoaded(true)}
+            />
+          )}
 
           <NativeImage
             src={eventLogoSrc}
