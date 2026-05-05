@@ -1,9 +1,3 @@
-// Tujuan      : Menu pilihan virtual background untuk PhotoScreen
-// Caller      : OptionSection/index.tsx
-// Dependensi  : PhotoboothContext, background-list static data
-// Main Exports: BackgroundMenu
-// Side Effects: Update selectedBackground & selectedCurrentBackground di context
-
 import {
   Box,
   Button,
@@ -71,7 +65,7 @@ const Preview: FC<PreviewProps> = ({ selected, bg, onClick }) => {
 
 const BackgroundMenu: FC<BackgroundMenuProps> = ({ setSelectedMenu }) => {
   const portrait = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("xl")
+    theme.breakpoints.down("xl"),
   );
 
   const {
@@ -112,9 +106,7 @@ const BackgroundMenu: FC<BackgroundMenuProps> = ({ setSelectedMenu }) => {
                 key={bg?.id ?? "none"}
                 selected={selected}
                 bg={bg}
-                onClick={() =>
-                  setSelectedCurrentBackground(bg?.url ?? null)
-                }
+                onClick={() => setSelectedCurrentBackground(bg?.url ?? null)}
               />
             );
           })}
@@ -146,9 +138,7 @@ const BackgroundMenu: FC<BackgroundMenuProps> = ({ setSelectedMenu }) => {
                 key={bg?.id ?? "none"}
                 selected={selected}
                 bg={bg}
-                onClick={() =>
-                  setSelectedCurrentBackground(bg?.url ?? null)
-                }
+                onClick={() => setSelectedCurrentBackground(bg?.url ?? null)}
               />
             );
           })}

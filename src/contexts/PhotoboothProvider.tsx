@@ -1,7 +1,3 @@
-// Tujuan      : Global state manager untuk sesi photobooth
-// Caller      : app/layout.tsx (root provider)
-// Main Exports: PhotoboothContext, PhotoboothProvider
-// Side Effects: Reads search params (event)
 "use client";
 
 import { useSearchParams } from "next/navigation";

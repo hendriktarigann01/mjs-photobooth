@@ -1,10 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// Tujuan      : Layar akhir untuk upload foto ke Supabase dan tampilkan QR Code
-// Caller      : HomeView (views/home/index.tsx)
-// Dependensi  : PhotoboothContext, useUploadImage, Supabase Storage, qrcode.react
-// Main Exports: QRScreen
-// Side Effects: Upload image ke Supabase Storage bucket
-
 import { LoadingButton } from "@mui/lab";
 import {
   Box,

@@ -1,7 +1,3 @@
-// Tujuan      : Daftar pilihan virtual background untuk photobooth
-// Caller      : BackgroundMenu.tsx
-// Main Exports: backgrounds
-
 export type BackgroundOption = {
   id: number;
   name: string;

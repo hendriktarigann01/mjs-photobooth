@@ -1,7 +1,3 @@
-// Tujuan      : Menu utama navigasi (Effect, Frame, Background, Foreground) + Back/Next
-// Caller      : OptionSection/index.tsx
-// Dependensi  : PhotoboothContext, applyFilters helper
-// Main Exports: MainMenu
 import { Button, Grid2 } from "@mui/material";
 import React, { Dispatch, FC, SetStateAction, useContext } from "react";
 import {

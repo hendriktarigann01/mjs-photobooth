@@ -105,8 +105,8 @@ const HomeView = () => {
 
           <>
             <NativeImage
-              src="/static/karindo.png"
-              alt="karindo-logo"
+              src="/static/mjswhite.png"
+              alt="mjs-logo"
               sx={{
                 width: { xs: "230px", xl: "171px" },
                 position: "absolute",
@@ -154,13 +154,12 @@ const HomeView = () => {
               >
                 <Instagram sx={{ fontSize: "36px" }} />
                 <Typography fontSize="22px" fontWeight="600">
-                  @karindo.id
+                  @mjsolutionid
                 </Typography>
               </Stack>
 
               <Typography fontSize="22px" color="white">
-                {/* Powered By MJ Solution Indonesia */}
-                Powered By Karindo
+                Powered By MJ Solution Indonesia
               </Typography>
 
               <Stack
@@ -171,8 +170,7 @@ const HomeView = () => {
               >
                 <Language sx={{ fontSize: "36px" }} />
                 <Typography fontSize="22px" fontWeight="600">
-                  {/* mjsolution.co.id */}
-                  karindoled.co.id
+                  mjsolution.co.id
                 </Typography>
               </Stack>
             </Stack>

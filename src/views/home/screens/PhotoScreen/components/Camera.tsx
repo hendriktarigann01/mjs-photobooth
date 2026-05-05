@@ -1,8 +1,3 @@
-// Tujuan      : Komponen kamera individual (per slot foto) dengan dukungan virtual background
-// Caller      : Layout.tsx (PhotoScreen)
-// Dependensi  : PhotoboothContext, react-webcam, useVirtualBackground hook
-// Main Exports: Camera
-// Side Effects: Akses webcam, render loop Canvas 2D untuk virtual background
 "use client";
 
 import { CameraAltOutlined } from "@mui/icons-material";

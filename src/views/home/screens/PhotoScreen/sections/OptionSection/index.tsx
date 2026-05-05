@@ -1,7 +1,3 @@
-// Tujuan      : Panel opsi kustom (Effect, Frame, Background) di layar foto
-// Caller      : PhotoScreen/index.tsx
-// Dependensi  : PhotoboothContext
-// Main Exports: OptionSection
 import { Box, Typography } from "@mui/material";
 import React, { useContext } from "react";
 
